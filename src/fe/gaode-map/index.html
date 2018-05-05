@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.6&key=ea520e4bd1de52ddd38956e3b32160cd"></script>
+
+    <title>热力图功能示例</title>
+    <style type="text/css">
+        ul,li{list-style: none;margin:0;padding:0;float:left;}
+        html{height:100%}
+        body{height:100%;margin:0px;padding:0px;font-family:"微软雅黑";}
+        #container{height:650px;width:600px;}
+        #r-result{width:100%;}
+    </style>
+</head>
+<body>
+    <div id="container" tabindex="0"></div>
+    <script type="text/javascript">
+           var map = new AMap.Map('container',{
+               resizeEnable: true,
+               zoom: 10,
+               center: [116.480983, 40.0958]
+           });
+
+
+           // 坐标点
+          var points =[
+              {"lng":116.191031,"lat":39.988585,"count":100},
+              {"lng":116.389275,"lat":39.925818,"count":60},
+              {"lng":116.287444,"lat":39.810742,"count":200},
+              {"lng":116.481707,"lat":39.940089,"count":30},
+              {"lng":116.410588,"lat":39.880172,"count":200},
+              {"lng":116.394816,"lat":39.91181,"count":10},
+              {"lng":116.416002,"lat":39.952917,"count":150}
+          ];
+          // 加载热力图插件
+          map.plugin(["AMap.Heatmap"],function () {
+               var heatmap=new AMap.Heatmap(map,{
+                  radius:50
+              });
+              heatmap.setDataSet({
+                     data:points,
+                  max:100
+                 });
+          });
+
+       </script>
+</body>
+</html>
+
+</body>
+</html>

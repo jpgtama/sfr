@@ -1,0 +1,7 @@
+src/libs/dojo-release-1.13.0/
+.sass-cache
+src/fe/static
+src/fe/libs/dojo-release-1.13.0
+
+node_modules/
+build/

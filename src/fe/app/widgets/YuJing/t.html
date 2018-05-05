@@ -1,0 +1,29 @@
+<div class="square yujing">
+    <div class="content" data-dojo-attach-point="contentNode">
+      <div class="titleBar">
+        <div class="title" data-dojo-attach-point="titleTextNode">预警信息</div>
+      </div>
+        <table class="avatar-table">
+            <tr data-dojo-attach-point="trackPersonImageTRNode">
+              <!-- <td><img class="avatar-img" src="./images/faces/002.jpg"/></td>
+              <td><img class="avatar-img" src="./images/faces/001.jpg"/></td>
+              <td><img class="avatar-img" src="./images/faces/001.jpg"/></td>
+              <td><img class="avatar-img" src="./images/faces/001.jpg"/></td> -->
+            </tr>
+        </table>
+        <div class="phone">
+            手机号码：<span data-dojo-attach-point="phoneNode"></span>
+        </div>
+        <div class="alarm-source">
+            告警源：<span  data-dojo-attach-point="fromNode">追逃库</span>
+        </div>
+        <div class="button" data-dojo-attach-point="locBtn">查看位置</div>
+        <!--可以显示最近一天的路线，当前位置标注一下 -->
+    </div>
+
+    <div class="content-map-wrapper hide" data-dojo-attach-point="contentMapWrapperNode">
+      <div class="back button small" data-dojo-attach-point="titleBackButton">返回</div>
+      <div class="map" data-dojo-attach-point="contentMapNode"></div>
+      <div class="btn"></div>
+    </div>
+</div>

@@ -1,0 +1,23 @@
+{
+    "default": {
+        "db": {
+            "url": "192.168.10.221",
+            "port": "3306",
+            "dbName": "gjga_data",
+            "user": "root",
+            "pwd": "asd123"
+        },
+        "imageBaseUrl": "http://192.168.10.222:8080/static/face/",
+        "apiBase": "/bdc/be/api/",
+				"realTimeRefresh": true
+    },
+    "EvanXYHu": {
+        "db": {
+            "url": "127.0.0.1",
+            "pwd": ""
+        },
+        "imageBaseUrl": "/static/face/",
+        "apiBase": "/bdc/be/testing-api/",
+				"realTimeRefresh": false
+    }
+}

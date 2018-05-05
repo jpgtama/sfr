@@ -1,0 +1,29 @@
+DELIMITER $$
+
+ALTER ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `v_point_location` AS 
+SELECT
+  `aa`.`point_id`           AS `point_id`,
+  `aa`.`point_type`         AS `point_type`,
+  `aa`.`org_id`             AS `org_id`,
+  `aa`.`point_sn`           AS `point_sn`,
+  `aa`.`point_name`         AS `point_name`,
+  (CASE WHEN ISNULL(`bb`.`lon`) THEN `aa`.`lon` ELSE `bb`.`lon` END) AS `lon`,
+  (CASE WHEN ISNULL(`bb`.`lat`) THEN `aa`.`lat` ELSE `bb`.`lat` END) AS `lat`,
+  `bb`.`last_location_time` AS `last_location_time`
+FROM (`gjga_data`.`b_monitor_point` `aa`
+   LEFT JOIN (SELECT
+                `a`.`point_id`             AS `point_id`,
+                `a`.`lon`                  AS `lon`,
+                `a`.`lat`                  AS `lat`,
+                `a`.`last_location_time`   AS `last_location_time`
+              FROM (`gjga_data`.`s_real_device_status` `a`
+                 JOIN (SELECT
+                         `gjga_data`.`s_real_device_status`.`point_id` AS `point_id`,
+                         MAX(`gjga_data`.`s_real_device_status`.`last_location_time`) AS `last_location_time`
+                       FROM `gjga_data`.`s_real_device_status`
+                       GROUP BY `gjga_data`.`s_real_device_status`.`point_id`) `b`)
+              WHERE ((`a`.`point_id` = `b`.`point_id`)
+                     AND (`a`.`last_location_time` = `b`.`last_location_time`))) `bb`
+     ON ((`aa`.`point_id` = `bb`.`point_id`)))$$
+
+DELIMITER ;

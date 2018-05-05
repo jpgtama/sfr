@@ -1,0 +1,6 @@
+DELIMITER $$
+
+ALTER ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `v_real_data_log` AS (
+SELECT 1 AS `data_id`,CURDATE() AS `data_day`,`dc`.`data_count` AS `data_count`,`alm`.`alarm_count` AS `alarm_count`,NOW() AS `data_updatetime` FROM (((SELECT SUM(`d`.`c`) AS `data_count` FROM (SELECT COUNT(0) AS `c` FROM `gjga_data`.`d_device` WHERE (`gjga_data`.`d_device`.`createby` > CURDATE()) UNION SELECT COUNT(0) AS `c` FROM `gjga_data`.`tb_probelog` WHERE (`gjga_data`.`tb_probelog`.`gettime` > CURDATE())) `d`)) `dc` JOIN (SELECT COUNT(0) AS `alarm_count` FROM `gjga_data`.`d_track_personnel`) `alm`))$$
+
+DELIMITER ;

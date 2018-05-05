@@ -1,0 +1,24 @@
+
+insert into `tb_probelog` (`apid`, `mac`, `rssi`, `gettime`, `lon`, `lat`, `point_id`, `msisdn`) values('ap78A35140D114','80F62E278DE0','-92',now(),'0','0','57',NULL);
+insert into `tb_probelog` (`apid`, `mac`, `rssi`, `gettime`, `lon`, `lat`, `point_id`, `msisdn`) values('ap78A35140C18C','DAA11990BA3C','-98',now(),'116.934107','36.663054','56',NULL);
+insert into `tb_probelog` (`apid`, `mac`, `rssi`, `gettime`, `lon`, `lat`, `point_id`, `msisdn`) values('ap78A35140D114','80F62E278DE0','-92',now(),'0','0','57',NULL);
+insert into `tb_probelog` (`apid`, `mac`, `rssi`, `gettime`, `lon`, `lat`, `point_id`, `msisdn`) values('ap78A35140C18C','DAA11990BA3C','-98',now(),'116.934107','36.663054','56',NULL);
+insert into `tb_probelog` (`apid`, `mac`, `rssi`, `gettime`, `lon`, `lat`, `point_id`, `msisdn`) values('ap78A35140C18C','DAA11927D27F','-92',now(),'116.934107','36.663054','56',NULL);
+insert into `tb_probelog` (`apid`, `mac`, `rssi`, `gettime`, `lon`, `lat`, `point_id`, `msisdn`) values('ap78A35140C18C','DAA11927D27F','-92',now(),'116.934107','36.663054','56',NULL);
+insert into `tb_probelog` (`apid`, `mac`, `rssi`, `gettime`, `lon`, `lat`, `point_id`, `msisdn`) values('ap78A35140C18C','CE9B5B9BF823','-76',now(),'116.934107','36.663054','56',NULL);
+insert into `tb_probelog` (`apid`, `mac`, `rssi`, `gettime`, `lon`, `lat`, `point_id`, `msisdn`) values('ap78A35140C18C','F06D780A964D','-86',now(),'116.934107','36.663054','56',NULL);
+insert into `tb_probelog` (`apid`, `mac`, `rssi`, `gettime`, `lon`, `lat`, `point_id`, `msisdn`) values('ap78A35140C18C','E2A8EE087BB7','-92',now(),'116.934107','36.663054','56',NULL);
+insert into `tb_probelog` (`apid`, `mac`, `rssi`, `gettime`, `lon`, `lat`, `point_id`, `msisdn`) values('ap78A35140C18C','CE9B5B9BF823','-76',now(),'116.934107','36.663054','56',NULL);
+insert into `tb_probelog` (`apid`, `mac`, `rssi`, `gettime`, `lon`, `lat`, `point_id`, `msisdn`) values('ap78A35140C18C','F06D780A964D','-86',now(),'116.934107','36.663054','56',NULL);
+insert into `tb_probelog` (`apid`, `mac`, `rssi`, `gettime`, `lon`, `lat`, `point_id`, `msisdn`) values('ap78A35140C18C','E2A8EE087BB7','-92',now(),'116.934107','36.663054','56',NULL);
+insert into `tb_probelog` (`apid`, `mac`, `rssi`, `gettime`, `lon`, `lat`, `point_id`, `msisdn`) values('ap78A35140C18C','00156D818148','-88',now(),'116.934107','36.663054','56',NULL);
+insert into `tb_probelog` (`apid`, `mac`, `rssi`, `gettime`, `lon`, `lat`, `point_id`, `msisdn`) values('ap78A35140C18C','00156D818148','-88',now(),'116.934107','36.663054','56',NULL);
+insert into `tb_probelog` (`apid`, `mac`, `rssi`, `gettime`, `lon`, `lat`, `point_id`, `msisdn`) values('ap78A35140C18C','000822FAA203','-94',now(),'116.934107','36.663054','56',NULL);
+insert into `tb_probelog` (`apid`, `mac`, `rssi`, `gettime`, `lon`, `lat`, `point_id`, `msisdn`) values('ap78A35140C18C','000822FAA203','-94',now(),'116.934107','36.663054','56',NULL);
+insert into `tb_probelog` (`apid`, `mac`, `rssi`, `gettime`, `lon`, `lat`, `point_id`, `msisdn`) values('ap78A35140C18C','F06D780A964D','-94',now(),'116.934107','36.663054','56',NULL);
+insert into `tb_probelog` (`apid`, `mac`, `rssi`, `gettime`, `lon`, `lat`, `point_id`, `msisdn`) values('ap78A35140C18C','F06D780A964D','-94',now(),'116.934107','36.663054','56',NULL);
+insert into `tb_probelog` (`apid`, `mac`, `rssi`, `gettime`, `lon`, `lat`, `point_id`, `msisdn`) values('ap78A35140C18C','B40B44EDA841','-90',now(),'116.934107','36.663054','56',NULL);
+insert into `tb_probelog` (`apid`, `mac`, `rssi`, `gettime`, `lon`, `lat`, `point_id`, `msisdn`) values('ap78A35140C18C','B40B44EDA841','-90',now(),'116.934107','36.663054','56',NULL);
+insert into `tb_probelog` (`apid`, `mac`, `rssi`, `gettime`, `lon`, `lat`, `point_id`, `msisdn`) values('ap78A35140C18C','DAA1199693A1','-84',now(),'116.934107','36.663054','56',NULL);
+insert into `tb_probelog` (`apid`, `mac`, `rssi`, `gettime`, `lon`, `lat`, `point_id`, `msisdn`) values('ap78A35140C18C','DAA1196214C8','-96',now(),'116.934107','36.663054','56',NULL);
+insert into `tb_probelog` (`apid`, `mac`, `rssi`, `gettime`, `lon`, `lat`, `point_id`, `msisdn`) values('ap78A35140C18C','DAA1199693A1','-84',now(),'116.934107','36.663054','56',NULL);

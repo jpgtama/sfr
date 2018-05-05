@@ -1,0 +1,109 @@
+.app{
+  width: 1080px;
+  height: 1920px;
+  background-image: url(images/bg.png);
+  background-repeat: no-repeat;
+  margin: auto;
+color: white;
+
+  .center{
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+.show-face-wrapper{
+  width: 512px;
+
+  .title{
+    height: 120px;
+    font-size: 34px;
+    // background-image: url(images/title01.png);
+    // background-repeat: no-repeat;
+    .img{
+          vertical-align: text-bottom;
+    }
+  }
+
+  .show-face{
+    height: 740px;
+    background-color: #092f49;
+
+    padding-top: 22px;
+
+    .face{
+      height: 500px;
+      width: 100%;
+      position: relative;
+
+      .real-face{
+            position: absolute;
+    left: 114px;
+    top: 90px;
+      }
+
+      .face-mask{
+        position: absolute;
+    left: 0px;
+    top: 0px;
+      }
+
+      .marker-circle{
+        position: absolute;
+        top: 406px;
+    left: 234px;
+    height: 50px;
+      }
+
+    }
+
+    .tip{
+      .icon{
+          height: 90px;
+           background-image: url(images/title02.png);
+          background-repeat: no-repeat;
+              background-position-x: center;
+
+      }
+      .text{
+        color: white;
+        font-size: 50px;
+        text-align: center;
+      }
+
+    }
+
+  }
+}
+
+
+
+  .face-list{
+    width: 900px;
+    height: 650px;
+
+    .content{
+      height: 100%;
+      width: 100%;
+      text-align: center;
+
+      .item{
+        display: inline-block;
+        .img{
+          width: 260px;
+          height: 260px;
+        }
+        .time{
+              height: 40px;
+        }
+      }
+    }
+  }
+  .video{
+    text-align: right;
+        margin-top: 81px;
+    margin-right: 10px;
+  }
+
+
+
+}
