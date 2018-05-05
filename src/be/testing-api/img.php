@@ -26,7 +26,7 @@
 
 $n = rand(1, 11);
 
-$result= array('file_name'=> "D:/workspace/shuping-face-reg/testing-data/faces/$n.jpg", 'time'=> randomDate('2018-5-5 8:8:8', '2018-5-5 12:12:12'));
+$result= array('file_name'=> "$n.jpg", 'time'=> randomDate('2018-5-5 8:8:8', '2018-5-5 12:12:12'));
 
 echo json_encode($result);
 ?>

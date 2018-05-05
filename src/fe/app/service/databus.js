@@ -15,15 +15,27 @@ define([
   var databus = {
 
     get: function(d, options){
+			options = lang.mixin({}, options);
       var p = lang.mixin({handleAs: 'json', async:true}, options);
 
       if(dataUrl[d]){
         var url = apiBaseUri + dataUrl[d];
 
         // add data
+				var queryObj = {};
         if(p.data){
-          url += '?'+ dojo.objectToQuery(p.data);
+					lang.mixin(queryObj, p.data);
         }
+
+				if(!options.cacheBust){
+					var ts = new Date().getTime();
+					queryObj[ts] = 1;
+				}
+
+
+				if(Object.keys(queryObj) > 0){
+					url += '?'+ dojo.objectToQuery(queryObj);
+				}
 
         return request(url, p);
       }else{
