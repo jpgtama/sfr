@@ -6,11 +6,13 @@ define([
     "dijit/_WidgetsInTemplateMixin",
     "dojo/date/locale",
     "dojo/dom-construct",
+    "dojo/query",
+    'dojo/_base/array',
     "dojo/_base/lang",
       "dojo/text!./app.html",
       "dojo/_base/declare"
 ], function(appConfig, databus, _WidgetBase, _TemplatedMixin,
-            _WidgetsInTemplateMixin, locale, domC, lang, template, declare) {
+            _WidgetsInTemplateMixin, locale, domC, query, array, lang, template, declare) {
 
     return declare("app.App", [_WidgetBase, _TemplatedMixin,
                _WidgetsInTemplateMixin
@@ -55,11 +57,13 @@ define([
         setToShowFace: function () {
             if(this.currentD.length > 0){
                 this.realFaceNode.src = appConfig.imgBaseUrl + this.currentD[0].file_name;
+                this.realFaceNode.style.display = "block";
             }
         },
 
         clearShowFace: function () {
           this.realFaceNode.src = '';
+          this.realFaceNode.style.display = "none";
         },
 
         moveToTable: function () {
@@ -80,23 +84,29 @@ define([
           this.tableImgList.unshift(d);
         },
 
+        getTableImgTimeDOM: function () {
+            if(!this.tableImgTimeDoms){
+              this.tableImgTimeDoms = [];
+              array.forEach(query('td', this.tableImgListNode), lang.hitch(this, function (td) {
+                  var img = query('img', td)[0];
+                  var div = query('div.time', td)[0];
+                  this.tableImgTimeDoms.push([img, div]);
+              }));
+            }
+
+            return this.tableImgTimeDoms;
+        },
+
         renderTableImgs: function () {
           var imgs = this.tableImgList;
           if(imgs && imgs.length>0 ){
-            // imgs = imgs.slice(0, 6);
-            // clear
-            this.tableImgListNode.innerHTML = '';
-
+            var doms = this.getTableImgTimeDOM();
             // add
-            for(i=0;i<imgs.length && i<6;){
-                var trs = '<tr>';
-                var tds = '';
-                for(j=0;j<3 && i<imgs.length;j++, i++){
-                  var img = imgs[i];
-                  tds += lang.replace('<td><div class="item"><img class="img" src="{url}"/><div class="time">{time}</div></div></td>', {url: appConfig.imgBaseUrl + img.file_name, time: img.time});
-                }
-                trs += tds + '</tr>';
-                this.tableImgListNode.appendChild(domC.toDom(trs));
+            for(i=0;i<imgs.length && i<6; i++){
+                var img = imgs[i];
+                var imgTimeDom = doms[i];
+                imgTimeDom[0].src = appConfig.imgBaseUrl + img.file_name;
+                imgTimeDom[1].innerText = img.time;
             }
           }
         },
