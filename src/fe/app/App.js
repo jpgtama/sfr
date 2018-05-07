@@ -1,4 +1,5 @@
 define([
+  "app/ws",
   "app/config",
   'app/service/databus',
     "dijit/_WidgetBase",
@@ -11,7 +12,7 @@ define([
     "dojo/_base/lang",
       "dojo/text!./app.html",
       "dojo/_base/declare"
-], function(appConfig, databus, _WidgetBase, _TemplatedMixin,
+], function(ws, appConfig, databus, _WidgetBase, _TemplatedMixin,
             _WidgetsInTemplateMixin, locale, domC, query, array, lang, template, declare) {
 
     return declare("app.App", [_WidgetBase, _TemplatedMixin,
@@ -29,6 +30,37 @@ define([
 
         //    your custom code goes here
         constructor: function(){
+
+        },
+
+        onMsg: function (obj) {
+          var d = {};
+
+          if(obj){
+            if(obj.type == "recognized" || obj.type == "unrecognized"){
+                if(obj.data){
+                  var data = obj.data;
+                  d.file_name = data.face.image;
+                  d.time = ''; // TODO current time;
+                }
+            }
+          }
+
+          if(d.file_name){
+            this.imgList.push(d);
+
+            if(fn){
+              fn();
+            }
+
+            // set show face
+            if(this.imgList.length > 0 ){
+              if(this.currentD.length === 0){
+                this.currentD.push(this.imgList.shift());
+              }
+              this.setToShowFace();
+            }
+          }
 
         },
 
@@ -56,9 +88,14 @@ define([
 
         setToShowFace: function () {
             if(this.currentD.length > 0){
-                this.realFaceNode.src = appConfig.imgBaseUrl + this.currentD[0].file_name;
+                this.setImgSrc(this.realFaceNode, this.currentD[0].file_name);
+                // this.realFaceNode.src = appConfig.imgBaseUrl + this.currentD[0].file_name;
                 this.realFaceNode.style.display = "block";
             }
+        },
+
+        setImgSrc: function (node, base64Str) {
+          node.src = "data:image/png;base64," + base64Str;
         },
 
         clearShowFace: function () {
@@ -105,7 +142,8 @@ define([
             for(i=0;i<imgs.length && i<6; i++){
                 var img = imgs[i];
                 var imgTimeDom = doms[i];
-                imgTimeDom[0].src = appConfig.imgBaseUrl + img.file_name;
+                // imgTimeDom[0].src = appConfig.imgBaseUrl + img.file_name;
+                this.setImgSrc(imgTimeDom[0], img.file_name)
                 imgTimeDom[1].innerText = img.time;
             }
           }
@@ -116,9 +154,11 @@ define([
           this.tableImgList = [];
           this.currentD = [];
 
-          this.loadData();
+          ws.onMessage = lang.hitch(this, 'onMsg');
+          ws.start();
+          // this.loadData();
 
-          this.intervalID = setInterval(lang.hitch(this, 'loadData'), 1000 * 1);
+          // this.intervalID = setInterval(lang.hitch(this, 'loadData'), 1000 * 1);
 
           // this.loopImg();
           setInterval(lang.hitch(this, 'moveToTable'), 1000 * 3);
