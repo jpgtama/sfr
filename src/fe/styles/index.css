@@ -33,9 +33,9 @@
 .app .show-face-wrapper .show-face .face .real-face {
   position: absolute;
   left: 2px;
-  top: -1px;
+  top: 0px;
   width: 509px;
-  height: 431px;
+  height: 429px;
 }
 .app .show-face-wrapper .show-face .face .face-mask {
   position: absolute;

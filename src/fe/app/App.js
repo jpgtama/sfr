@@ -49,9 +49,6 @@ define([
           if(d.file_name){
             this.imgList.push(d);
 
-            if(fn){
-              fn();
-            }
 
             // set show face
             if(this.imgList.length > 0 ){
@@ -87,10 +84,23 @@ define([
         },
 
         setToShowFace: function () {
+            // get one
+            if(this.imgList.length > 0 ){
+              if(this.currentD.length === 0){
+                this.currentD.push(this.imgList.shift());
+              }
+            }
+
+
+            // display
             if(this.currentD.length > 0){
                 this.setImgSrc(this.realFaceNode, this.currentD[0].file_name);
                 // this.realFaceNode.src = appConfig.imgBaseUrl + this.currentD[0].file_name;
-                this.realFaceNode.style.display = "block";
+                // this.realFaceNode.style.display = "block";
+                this.faceNode.style.visibility = "visible";
+
+                // moveToTable after 3 sec
+                setTimeout(lang.hitch(this, 'moveToTable'), 1000 * 3);
             }
         },
 
@@ -100,7 +110,8 @@ define([
 
         clearShowFace: function () {
           this.realFaceNode.src = '';
-          this.realFaceNode.style.display = "none";
+          // this.realFaceNode.style.display = "none";
+          this.faceNode.style.visibility = "hidden";
         },
 
         moveToTable: function () {
@@ -109,6 +120,7 @@ define([
             this.renderTableImgs();
             this.clearShowFace();
           }
+
         },
 
         addToTableImgList: function () {
@@ -161,7 +173,7 @@ define([
           // this.intervalID = setInterval(lang.hitch(this, 'loadData'), 1000 * 1);
 
           // this.loopImg();
-          setInterval(lang.hitch(this, 'moveToTable'), 1000 * 3);
+          setInterval(lang.hitch(this, 'setToShowFace'), 1000 * 1);
 
         },
 

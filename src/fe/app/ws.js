@@ -3,7 +3,7 @@ define(['dojo/_base/declare'], function (declare) {
   var obj = {
     onMessage: function (evt) {
       console.log('Please override this method.', evt);
-    }
+    },
 
     start: function () {
       testWebSocket();
@@ -13,7 +13,8 @@ define(['dojo/_base/declare'], function (declare) {
   };
 
   //主机地址
-    var wsUrl = "ws://192.168.10.210:9000/video";
+    var wsUrl = "ws://localhost:8080/hello-WS/websocket";
+    // var wsUrl = "ws://192.168.10.210:9000/video";
 	//var wsUrl = "ws://221.214.51.74:9000/video";
     //视频流地址
 	var rtspUrl = "rtsp://192.168.10.215/user=admin&password=&channel=1&stream=0.sdp?";
@@ -58,12 +59,19 @@ define(['dojo/_base/declare'], function (declare) {
 
 	//收到消息
 	function onMessage(evt) {
-		var obj = window.retData = eval('(' + evt.data + ')');
+    var retObj;
+    if(typeof evt.data === 'string'){
+      retObj = JSON.parse(evt.data);
+    }else{
+      retObj = evt.data;
+    }
+
+		// var obj = window.retData = eval('(' + evt.data + ')');
 		// image = obj['data']['face']['image'];
 		// writeToScreen('<img height="100" width="100" src="data:image/png;base64,' + image + '"/>');
 		//关闭连接
 		//websocket.close();
-    obj.onMessage(obj);
+    obj.onMessage(retObj);
 	}
 
 	function onError(evt) {
