@@ -33,6 +33,18 @@ define([
 
         },
 
+		getCTime: function(){
+			var d = new Date();
+			
+			function pad(num, size) {
+				var s = num+"";
+				while (s.length < size) s = "0" + s;
+				return s;
+			}
+			
+			return pad(d.getHours(), 2) + ":" + pad(d.getMinutes(), 2) + ":" +  pad(d.getSeconds(), 2);
+		},
+		
         onMsg: function (obj) {
           var d = {};
 
@@ -41,7 +53,7 @@ define([
                 if(obj.data){
                   var data = obj.data;
                   d.file_name = data.face.image;
-                  d.time = ''; // TODO current time;
+                  d.time =  this.getCTime(); // TODO current time;
                 }
             }
           }
@@ -97,7 +109,7 @@ define([
                 this.setImgSrc(this.realFaceNode, this.currentD[0].file_name);
                 // this.realFaceNode.src = appConfig.imgBaseUrl + this.currentD[0].file_name;
                 // this.realFaceNode.style.display = "block";
-                this.faceNode.style.visibility = "visible";
+                this.showFaceNode.style.visibility = "visible";
 
                 // moveToTable after 3 sec
                 setTimeout(lang.hitch(this, 'moveToTable'), 1000 * 3);
@@ -111,7 +123,7 @@ define([
         clearShowFace: function () {
           this.realFaceNode.src = '';
           // this.realFaceNode.style.display = "none";
-          this.faceNode.style.visibility = "hidden";
+          this.showFaceNode.style.visibility = "hidden";
         },
 
         moveToTable: function () {
@@ -157,6 +169,7 @@ define([
                 // imgTimeDom[0].src = appConfig.imgBaseUrl + img.file_name;
                 this.setImgSrc(imgTimeDom[0], img.file_name)
                 imgTimeDom[1].innerText = img.time;
+				imgTimeDom[1].style.fontSize = '30px';
             }
           }
         },
