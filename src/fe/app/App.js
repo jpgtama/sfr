@@ -35,16 +35,16 @@ define([
 
 		getCTime: function(){
 			var d = new Date();
-			
+
 			function pad(num, size) {
 				var s = num+"";
 				while (s.length < size) s = "0" + s;
 				return s;
 			}
-			
+
 			return pad(d.getHours(), 2) + ":" + pad(d.getMinutes(), 2) + ":" +  pad(d.getSeconds(), 2);
 		},
-		
+
         onMsg: function (obj) {
           var d = {};
 
@@ -52,8 +52,23 @@ define([
             if(obj.type == "recognized" || obj.type == "unrecognized"){
                 if(obj.data){
                   var data = obj.data;
+                  d.imgContentType = 'base64';
                   d.file_name = data.face.image;
                   d.time =  this.getCTime(); // TODO current time;
+
+                  // peerson name
+                  if(obj.type == "recognized"){
+                    if(data.person.tag){
+                      var tag = JSON.parse(data.person.tag);
+                      // avatar
+                      d.imgContentType = 'url';
+                      d.file_name = tag.avatar;
+
+                      // name
+                      d.person_name = tag.name ; // TODO
+                      // "{"remark": "", "subject_type": 0, "description": "", "title": "", "start_time": null, "avatar": "/static/upload/photo/2018-05-08/92f4d623e884916ee04085dbe6cb32ac496653f5.jpg", "job_number": "", "origin_photo_id": 25, "birthday": null, "entry_date": null, "department": "", "end_time": null, "id": 25, "name": "\u675c\u5cf0"}"
+                    }
+                  }
                 }
             }
           }
@@ -106,7 +121,15 @@ define([
 
             // display
             if(this.currentD.length > 0){
-                this.setImgSrc(this.realFaceNode, this.currentD[0].file_name);
+                this.setImgSrc(this.realFaceNode, this.currentD[0].file_name, this.currentD[0].imgContentType);
+
+                // set person name
+                if(this.currentD[0].person_name){
+                  this.personNameNode.innerText = this.currentD[0].person_name;
+                }else{
+                  this.personNameNode.innerText = '山东酷创  欢迎您';
+                }
+
                 // this.realFaceNode.src = appConfig.imgBaseUrl + this.currentD[0].file_name;
                 // this.realFaceNode.style.display = "block";
                 this.showFaceNode.style.visibility = "visible";
@@ -116,8 +139,12 @@ define([
             }
         },
 
-        setImgSrc: function (node, base64Str) {
-          node.src = "data:image/png;base64," + base64Str;
+        setImgSrc: function (node, base64Str, imgContentType) {
+          if(imgContentType == 'base64'){
+            node.src = "data:image/png;base64," + base64Str;
+          }else if(imgContentType == 'url'){
+            node.src = appConfig.imgBaseUrl + base64Str;
+          }
         },
 
         clearShowFace: function () {
@@ -167,9 +194,11 @@ define([
                 var img = imgs[i];
                 var imgTimeDom = doms[i];
                 // imgTimeDom[0].src = appConfig.imgBaseUrl + img.file_name;
-                this.setImgSrc(imgTimeDom[0], img.file_name)
-                imgTimeDom[1].innerText = img.time;
-				imgTimeDom[1].style.fontSize = '30px';
+                this.setImgSrc(imgTimeDom[0], img.file_name, img.imgContentType)
+
+                // add person name before time
+                imgTimeDom[1].innerText = img.person_name? (img.person_name + ' '+  img.time): img.time;
+				        imgTimeDom[1].style.fontSize = '30px';
             }
           }
         },

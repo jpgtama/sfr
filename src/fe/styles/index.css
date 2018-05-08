@@ -1,6 +1,10 @@
+body {
+  margin: 0px;
+}
+
 .app {
-  width: 1080px;
-  height: 1920px;
+  width: 1078px;
+  height: 1918px;
   background-image: url(images/bg.png);
   background-repeat: no-repeat;
   margin: auto;
