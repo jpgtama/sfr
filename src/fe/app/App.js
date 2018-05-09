@@ -6,6 +6,7 @@ define([
     "dijit/_TemplatedMixin",
     "dijit/_WidgetsInTemplateMixin",
     "dojo/date/locale",
+    "dojo/dom-class",
     "dojo/dom-construct",
     "dojo/query",
     'dojo/_base/array',
@@ -13,7 +14,7 @@ define([
       "dojo/text!./app.html",
       "dojo/_base/declare"
 ], function(ws, appConfig, databus, _WidgetBase, _TemplatedMixin,
-            _WidgetsInTemplateMixin, locale, domC, query, array, lang, template, declare) {
+            _WidgetsInTemplateMixin, locale, domClass, domC, query, array, lang, template, declare) {
 
     return declare("app.App", [_WidgetBase, _TemplatedMixin,
                _WidgetsInTemplateMixin
@@ -58,7 +59,7 @@ define([
 
                   // peerson name
                   if(obj.type == "recognized"){
-                    if(data.person.tag){
+                    if(data.person && data.person.tag){
                       var tag = JSON.parse(data.person.tag);
                       // avatar
                       d.imgContentType = 'url';
@@ -67,7 +68,15 @@ define([
                       // name
                       d.person_name = tag.name ; // TODO
                       // "{"remark": "", "subject_type": 0, "description": "", "title": "", "start_time": null, "avatar": "/static/upload/photo/2018-05-08/92f4d623e884916ee04085dbe6cb32ac496653f5.jpg", "job_number": "", "origin_photo_id": 25, "birthday": null, "entry_date": null, "department": "", "end_time": null, "id": 25, "name": "\u675c\u5cf0"}"
+
+                      //  face mask  image
+                      // domClass.add(this.faceMaskNode, 'recognized');
+                      this.faceMaskNode.src = 'styles/images/face-mask-recognized.png';
                     }
+                  }else{
+                    // domClass.remove(this.faceMaskNode, 'recognized');
+                    // styles/images/face-mask.png
+                    this.faceMaskNode.src = 'styles/images/face-mask.png';
                   }
                 }
             }
@@ -78,45 +87,55 @@ define([
 
 
             // set show face
-            if(this.imgList.length > 0 ){
-              if(this.currentD.length === 0){
-                this.currentD.push(this.imgList.shift());
-              }
-              this.setToShowFace();
-            }
+            // if(this.imgList.length > 0 ){
+            //   if(this.currentD.length === 0){
+            //     this.currentD.push(this.imgList.shift());
+            //   }
+            //   this.setToShowFace();
+            // }
+            this.setToShowFace();
           }
 
         },
 
-        loadData: function (fn) {
-          // load img to a list, per 1 seconds
-          databus.get('img').then(lang.hitch(this, function(d){
-              // for(var i=0;i<d.length;i++){
-              //   this.imgList.push(d[i]);
-              // }
-              this.imgList.push(d);
-
-              if(fn){
-                fn();
-              }
-
-              // set show face
-              if(this.imgList.length > 0 ){
-                if(this.currentD.length === 0){
-                  this.currentD.push(this.imgList.shift());
-                }
-                this.setToShowFace();
-              }
-          }));
-        },
+        // loadData: function (fn) {
+        //   // load img to a list, per 1 seconds
+        //   databus.get('img').then(lang.hitch(this, function(d){
+        //       // for(var i=0;i<d.length;i++){
+        //       //   this.imgList.push(d[i]);
+        //       // }
+        //       this.imgList.push(d);
+        //
+        //       if(fn){
+        //         fn();
+        //       }
+        //
+        //       // set show face
+        //       if(this.imgList.length > 0 ){
+        //         if(this.currentD.length === 0){
+        //           this.currentD.push(this.imgList.shift());
+        //         }
+        //         this.setToShowFace();
+        //       }
+        //   }));
+        // },
 
         setToShowFace: function () {
+          // clear current display
+          if(this.moveToTableTimeoutID){
+            clearTimeout(this.moveToTableTimeoutID);
+          }
+          this.moveToTable();
+
             // get one
             if(this.imgList.length > 0 ){
               if(this.currentD.length === 0){
                 this.currentD.push(this.imgList.shift());
               }
             }
+
+
+
 
 
             // display
@@ -135,7 +154,9 @@ define([
                 this.showFaceNode.style.visibility = "visible";
 
                 // moveToTable after 3 sec
-                setTimeout(lang.hitch(this, 'moveToTable'), 1000 * 3);
+                if(!appConfig.keepLastFace){
+                  this.moveToTableTimeoutID = setTimeout(lang.hitch(this, 'moveToTable'), 1000 * 3);
+                }
             }
         },
 
@@ -215,7 +236,7 @@ define([
           // this.intervalID = setInterval(lang.hitch(this, 'loadData'), 1000 * 1);
 
           // this.loopImg();
-          setInterval(lang.hitch(this, 'setToShowFace'), 1000 * 1);
+          // setInterval(lang.hitch(this, 'setToShowFace'), 1000 * 1);
 
         },
 
