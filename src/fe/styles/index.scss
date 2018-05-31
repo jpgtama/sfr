@@ -3,9 +3,9 @@ body{
 }
 
 .app{
-  width: 1078px;
-  height: 1918px;
-  background-image: url(images/bg.png);
+  width: 1920px;
+  height: 1080px;
+  background-image: url(images/bg.jpg);
   background-repeat: no-repeat;
   margin: auto;
 color: white;
@@ -15,18 +15,25 @@ color: white;
     margin-right: auto;
   }
 
-.show-face-wrapper{
-  width: 527px;
 
-  .title{
+	.title{
     height: 120px;
     font-size: 34px;
+		width: 630px;
     // background-image: url(images/title01.png);
     // background-repeat: no-repeat;
     .img{
           vertical-align: text-bottom;
     }
   }
+
+
+
+
+.show-face-wrapper{
+  width: 527px;
+
+
 
   .show-face{
     height: 740px;
