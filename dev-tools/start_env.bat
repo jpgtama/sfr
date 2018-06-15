@@ -1,0 +1,1 @@
+powershell -ExecutionPolicy ByPass -File start_env.ps1
