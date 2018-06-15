@@ -31,19 +31,20 @@ color: white;
 
 
 .show-face-wrapper{
-  width: 420px;
+  width: 1600px;
 
 
 
   .show-face{
     display: inline-block;
     height: 590px;
+    width: 417px;
     background-color: #092f49;
 
     padding-top: 22px;
 
     .face{
-      height: 500px;
+      height: 413px;
       width: 100%;
       position: relative;
 
@@ -51,31 +52,31 @@ color: white;
         position: absolute;
         left: 2px;
         top: 0px;
-        width: 509px;
-        height: 429px;
+        width: 415px;
+    	height: 391px;
       }
 
       .face-mask{
         position: absolute;
-    left: 0px;
-    top: 0px;
+	    left: 0px;
+	    top: 0px;
       }
 
       .marker-circle{
         position: absolute;
-        top: 406px;
-    left: 234px;
-    height: 50px;
+        top: 367px;
+	    left: 183px;
+	    height: 50px;
       }
 
     }
 
     .tip{
       .icon{
-          height: 90px;
-           background-image: url(images/title02.png);
-          background-repeat: no-repeat;
-              background-position-x: center;
+  		height: 90px;
+		background-image: url(images/title02.png);
+		background-repeat: no-repeat;
+		background-position-x: center;
 
       }
       .text{
@@ -92,25 +93,30 @@ color: white;
 
 
   .face-list{
-    width: 900px;
-    height: 650px;
+    margin-top: 44px;
 
     .content{
-      height: 100%;
-      width: 100%;
+      display: inline-block;
       text-align: center;
-
+	  border-spacing: 19px;
+	  margin-bottom: 58px;
+		
       .item{
         display: inline-block;
         .img{
-          width: 260px;
-          height: 260px;
+          width: 117px;
+          height: 114px;
         }
         .time{
-              height: 40px;
+              height: 22px;
         }
       }
     }
+	
+	.videoObject{
+	      margin-left: 22px;
+	}
+	
   }
   .video{
     text-align: right;

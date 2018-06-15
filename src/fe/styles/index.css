@@ -1,6 +1,5 @@
 body {
-  margin: 0px;
-}
+  margin: 0px; }
 
 .app {
   width: 1920px;
@@ -8,86 +7,71 @@ body {
   background-image: url(images/bg.jpg);
   background-repeat: no-repeat;
   margin: auto;
-  color: white;
-}
+  color: white; }
 .app .center {
   margin-left: auto;
-  margin-right: auto;
-}
+  margin-right: auto; }
 .app .title {
   height: 120px;
   font-size: 34px;
-  width: 630px;
-}
+  width: 630px; }
 .app .title .img {
-  vertical-align: text-bottom;
-}
+  vertical-align: text-bottom; }
 .app .show-face-wrapper {
-  /* width: 420px; */
-}
+  width: 1600px; }
 .app .show-face-wrapper .show-face {
   display: inline-block;
   height: 590px;
+  width: 417px;
   background-color: #092f49;
-  padding-top: 22px;
-}
+  padding-top: 22px; }
 .app .show-face-wrapper .show-face .face {
-  height: 500px;
+  height: 413px;
   width: 100%;
-  position: relative;
-}
+  position: relative; }
 .app .show-face-wrapper .show-face .face .real-face {
   position: absolute;
   left: 2px;
   top: 0px;
-  width: 509px;
-  height: 429px;
-}
+  width: 415px;
+  height: 391px; }
 .app .show-face-wrapper .show-face .face .face-mask {
   position: absolute;
   left: 0px;
-  top: 0px;
-}
+  top: 0px; }
 .app .show-face-wrapper .show-face .face .marker-circle {
   position: absolute;
-  top: 406px;
-  left: 234px;
-  height: 50px;
-}
+  top: 367px;
+  left: 183px;
+  height: 50px; }
 .app .show-face-wrapper .show-face .tip .icon {
   height: 90px;
   background-image: url(images/title02.png);
   background-repeat: no-repeat;
-  background-position-x: center;
-}
+  background-position-x: center; }
 .app .show-face-wrapper .show-face .tip .text {
   color: white;
   font-size: 50px;
-  text-align: center;
-}
+  text-align: center; }
 .app .face-list {
-  width: 900px;
-  height: 650px;
-}
+  margin-top: 44px; }
 .app .face-list .content {
-  height: 100%;
-  width: 100%;
-  text-align: center;
-}
-.app .face-list .content .item {
   display: inline-block;
-}
+  text-align: center;
+  border-spacing: 19px;
+  margin-bottom: 58px; }
+.app .face-list .content .item {
+  display: inline-block; }
 .app .face-list .content .item .img {
-  width: 260px;
-  height: 260px;
-}
+  width: 117px;
+  height: 114px; }
 .app .face-list .content .item .time {
-  height: 40px;
-}
+  height: 22px; }
+.app .face-list .videoObject {
+  margin-left: 22px; }
 .app .video {
   text-align: right;
   margin-top: 81px;
-  margin-right: 10px;
-}
+  margin-right: 10px; }
 
 /*# sourceMappingURL=index.css.map */
