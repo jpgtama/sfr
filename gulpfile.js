@@ -31,7 +31,7 @@ var source = './src',
 gulp.task('watch', function(done) {
   gulp.src(source + '/**/*', {base: source})
     .pipe(setupConfig())
-    .pipe(watch(source, {base: source}))
+    .pipe(watch([source, '!fe/styles/.sass-cache/**/*'], {base: source}))
     .pipe(gulp.dest(destination));
 
 
