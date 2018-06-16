@@ -93,14 +93,15 @@ color: white;
 
 
   .face-list{
-    margin-top: 44px;
+    margin-top: 134px;
 
     .content{
-      display: inline-block;
+      // display: inline-block;
       text-align: center;
-	  border-spacing: 19px;
-	  margin-bottom: 58px;
-		
+      width: 100%;
+	  //border-spacing: 19px;
+	  // margin-bottom: 58px;
+
       .item{
         display: inline-block;
         .img{
@@ -111,12 +112,19 @@ color: white;
               height: 22px;
         }
       }
+
+			.videoWrapper{
+				width: 98%;
+				height: 193px; 
+				text-align: right;
+			}
+
     }
-	
-	.videoObject{
-	      margin-left: 22px;
-	}
-	
+
+	// .videoObject{
+	//       margin-left: 22px;
+	// }
+
   }
   .video{
     text-align: right;
