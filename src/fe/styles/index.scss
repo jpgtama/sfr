@@ -32,62 +32,66 @@ color: white;
 
 .show-face-wrapper{
   width: 1600px;
+	display: table;
+    text-align: center;
 
+		.show-face-single-wrapper{
+			display: table-cell;
+			.show-face{
+		    display: inline-block;
+		    height: 590px;
+		    width: 417px;
+		    background-color: #092f49;
 
+		    padding-top: 22px;
 
-  .show-face{
-    display: inline-block;
-    height: 590px;
-    width: 417px;
-    background-color: #092f49;
+		    .face{
+					height: 413px;
+					width: 100%;
+					position: relative;
 
-    padding-top: 22px;
+		      .real-face{
+		        position: absolute;
+		        left: 2px;
+		        top: 0px;
+		        width: 415px;
+		    		height: 391px;
+		      }
 
-    .face{
-      height: 413px;
-      width: 100%;
-      position: relative;
+		      .face-mask{
+						position: absolute;
+						left: 0px;
+						top: 0px;
+		      }
 
-      .real-face{
-        position: absolute;
-        left: 2px;
-        top: 0px;
-        width: 415px;
-    	height: 391px;
-      }
+		      .marker-circle{
+						position: absolute;
+						top: 367px;
+						left: 183px;
+						height: 50px;
+		      }
 
-      .face-mask{
-        position: absolute;
-	    left: 0px;
-	    top: 0px;
-      }
+		    }
 
-      .marker-circle{
-        position: absolute;
-        top: 367px;
-	    left: 183px;
-	    height: 50px;
-      }
+		    .tip{
+		      .icon{
+						height: 90px;
+						background-image: url(images/title02.png);
+						background-repeat: no-repeat;
+						background-position-x: center;
 
-    }
+		      }
+		      .text{
+		        color: white;
+		        font-size: 50px;
+		        text-align: center;
+		      }
 
-    .tip{
-      .icon{
-  		height: 90px;
-		background-image: url(images/title02.png);
-		background-repeat: no-repeat;
-		background-position-x: center;
+		    }
 
-      }
-      .text{
-        color: white;
-        font-size: 50px;
-        text-align: center;
-      }
+		  }
+		}
 
-    }
-
-  }
 }
 
 
@@ -115,7 +119,7 @@ color: white;
 
 			.videoWrapper{
 				width: 98%;
-				height: 193px; 
+				height: 193px;
 				text-align: right;
 			}
 

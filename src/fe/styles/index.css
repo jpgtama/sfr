@@ -24,44 +24,49 @@ body {
 }
 .app .show-face-wrapper {
   width: 1600px;
+  display: table;
+  text-align: center;
 }
-.app .show-face-wrapper .show-face {
+.app .show-face-wrapper .show-face-single-wrapper {
+  display: table-cell;
+}
+.app .show-face-wrapper .show-face-single-wrapper .show-face {
   display: inline-block;
   height: 590px;
   width: 417px;
   background-color: #092f49;
   padding-top: 22px;
 }
-.app .show-face-wrapper .show-face .face {
+.app .show-face-wrapper .show-face-single-wrapper .show-face .face {
   height: 413px;
   width: 100%;
   position: relative;
 }
-.app .show-face-wrapper .show-face .face .real-face {
+.app .show-face-wrapper .show-face-single-wrapper .show-face .face .real-face {
   position: absolute;
   left: 2px;
   top: 0px;
   width: 415px;
   height: 391px;
 }
-.app .show-face-wrapper .show-face .face .face-mask {
+.app .show-face-wrapper .show-face-single-wrapper .show-face .face .face-mask {
   position: absolute;
   left: 0px;
   top: 0px;
 }
-.app .show-face-wrapper .show-face .face .marker-circle {
+.app .show-face-wrapper .show-face-single-wrapper .show-face .face .marker-circle {
   position: absolute;
   top: 367px;
   left: 183px;
   height: 50px;
 }
-.app .show-face-wrapper .show-face .tip .icon {
+.app .show-face-wrapper .show-face-single-wrapper .show-face .tip .icon {
   height: 90px;
   background-image: url(images/title02.png);
   background-repeat: no-repeat;
   background-position-x: center;
 }
-.app .show-face-wrapper .show-face .tip .text {
+.app .show-face-wrapper .show-face-single-wrapper .show-face .tip .text {
   color: white;
   font-size: 50px;
   text-align: center;

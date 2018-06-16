@@ -1,4 +1,7 @@
 define([
+  'app/widgets/FaceReg/ShowFaceListController',
+  'app/widgets/FaceReg/WSDataProcessor',
+  'app/widgets/FaceReg/BelowListProcessor',
   "app/ws",
   "app/config",
   'app/service/databus',
@@ -13,9 +16,23 @@ define([
     "dojo/_base/lang",
       "dojo/text!./app.html",
       "dojo/_base/declare"
-], function(ws, appConfig, databus, _WidgetBase, _TemplatedMixin,
+], function(ShowFaceListController, WSDataProcessor, BelowListProcessor, ws, appConfig, databus, _WidgetBase, _TemplatedMixin,
             _WidgetsInTemplateMixin, locale, domClass, domC, query, array, lang, template, declare) {
+    /**
+    Design:
+      Will have one queue:
+        1. ws-queue: store images received from ws
 
+      Will have a controller:
+        1. ShowFaceListController: which controls display ws images, fetch image from ws-queue periodically
+
+      Will have a ws data processor:
+        1. WSDataProcessor: which will process ws data
+
+      Will have a below list processor:
+        1. BelowListProcessor: will process the face list in below table
+
+    */
     return declare("app.App", [_WidgetBase, _TemplatedMixin,
                _WidgetsInTemplateMixin
     ], {
@@ -29,72 +46,83 @@ define([
 
         firstSet: true,
 
+        wsQueue: null,
+
+        showFaceListController: null,
+
+        wsDataProcessor: null,
+
+        belowListProcessor: null,
+
         //    your custom code goes here
         constructor: function(){
 
         },
 
-		getCTime: function(){
-			var d = new Date();
-
-			function pad(num, size) {
-				var s = num+"";
-				while (s.length < size) s = "0" + s;
-				return s;
-			}
-
-			return pad(d.getHours(), 2) + ":" + pad(d.getMinutes(), 2) + ":" +  pad(d.getSeconds(), 2);
-		},
+		// getCTime: function(){
+		// 	var d = new Date();
+    //
+		// 	function pad(num, size) {
+		// 		var s = num+"";
+		// 		while (s.length < size) s = "0" + s;
+		// 		return s;
+		// 	}
+    //
+		// 	return pad(d.getHours(), 2) + ":" + pad(d.getMinutes(), 2) + ":" +  pad(d.getSeconds(), 2);
+		// },
 
         onMsg: function (obj) {
-          var d = {};
+          var d = this.wsDataProcessor.processSingle(obj);
 
-          if(obj){
-            if(obj.type == "recognized" || obj.type == "unrecognized"){
-                if(obj.data){
-                  var data = obj.data;
-                  d.imgContentType = 'base64';
-                  d.file_name = data.face.image;
-                  d.time =  this.getCTime(); // TODO current time;
+          console.log(d)
 
-                  // peerson name
-                  if(obj.type == "recognized"){
-                    if(data.person && data.person.tag){
-                      var tag = JSON.parse(data.person.tag);
-                      // avatar
-                      d.imgContentType = 'url';
-                      d.file_name = tag.avatar;
-
-                      // name
-                      d.person_name = tag.name ; // TODO
-                      // "{"remark": "", "subject_type": 0, "description": "", "title": "", "start_time": null, "avatar": "/static/upload/photo/2018-05-08/92f4d623e884916ee04085dbe6cb32ac496653f5.jpg", "job_number": "", "origin_photo_id": 25, "birthday": null, "entry_date": null, "department": "", "end_time": null, "id": 25, "name": "\u675c\u5cf0"}"
-
-                      //  face mask  image
-                      // domClass.add(this.faceMaskNode, 'recognized');
-                      this.faceMaskNode.src = 'styles/images/face-mask-recognized.png';
-                    }
-                  }else{
-                    // domClass.remove(this.faceMaskNode, 'recognized');
-                    // styles/images/face-mask.png
-                    this.faceMaskNode.src = 'styles/images/face-mask.png';
-                  }
-                }
-            }
-          }
-
-          if(d.file_name){
-            this.imgList.push(d);
-
-
-            // set show face
-            // if(this.imgList.length > 0 ){
-            //   if(this.currentD.length === 0){
-            //     this.currentD.push(this.imgList.shift());
-            //   }
-            //   this.setToShowFace();
-            // }
-            this.setToShowFace();
-          }
+          this.wsQueue.push(d);
+          // if(obj){
+          //   if(obj.type == "recognized" || obj.type == "unrecognized"){
+          //       if(obj.data){
+          //         var data = obj.data;
+          //         d.imgContentType = 'base64';
+          //         d.file_name = data.face.image;
+          //         d.time =  this.getCTime(); // TODO current time;
+          //
+          //         // peerson name
+          //         if(obj.type == "recognized"){
+          //           if(data.person && data.person.tag){
+          //             var tag = JSON.parse(data.person.tag);
+          //             // avatar
+          //             d.imgContentType = 'url';
+          //             d.file_name = tag.avatar;
+          //
+          //             // name
+          //             d.person_name = tag.name ; // TODO
+          //             // "{"remark": "", "subject_type": 0, "description": "", "title": "", "start_time": null, "avatar": "/static/upload/photo/2018-05-08/92f4d623e884916ee04085dbe6cb32ac496653f5.jpg", "job_number": "", "origin_photo_id": 25, "birthday": null, "entry_date": null, "department": "", "end_time": null, "id": 25, "name": "\u675c\u5cf0"}"
+          //
+          //             //  face mask  image
+          //             // domClass.add(this.faceMaskNode, 'recognized');
+          //             this.faceMaskNode.src = 'styles/images/face-mask-recognized.png';
+          //           }
+          //         }else{
+          //           // domClass.remove(this.faceMaskNode, 'recognized');
+          //           // styles/images/face-mask.png
+          //           this.faceMaskNode.src = 'styles/images/face-mask.png';
+          //         }
+          //       }
+          //   }
+          // }
+          //
+          // if(d.file_name){
+          //   this.imgList.push(d);
+          //
+          //
+          //   // set show face
+          //   // if(this.imgList.length > 0 ){
+          //   //   if(this.currentD.length === 0){
+          //   //     this.currentD.push(this.imgList.shift());
+          //   //   }
+          //   //   this.setToShowFace();
+          //   // }
+          //   this.setToShowFace();
+          // }
 
         },
 
@@ -228,6 +256,12 @@ define([
           this.imgList = [];
           this.tableImgList = [];
           this.currentD = [];
+          this.wsQueue = [];
+          this.wsDataProcessor = new WSDataProcessor();
+          this.belowListProcessor = new BelowListProcessor({tableImgListNode： this.tableImgListNode});
+          this.showFaceListController = new ShowFaceListController({showFaceWrapperNode: this.showFaceWrapperNode, wsQueue: this.wsQueue, belowListProcessor: this.belowListProcessor});
+          this.showFaceListController.start();
+
 
           ws.onMessage = lang.hitch(this, 'onMsg');
           ws.start();
