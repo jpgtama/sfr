@@ -52,9 +52,14 @@ define(['app/RTSPConfig', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/_base/a
       ws: null,
 
       reconnect: function () {
+        if(this.instance){
+          this.instance = null;
+        }
+
+
         setTimeout(lang.hitch(this, function(){
           this.testWebSocket(this.ws);
-        }), 1000);
+        }), 10000);
 
       },
 

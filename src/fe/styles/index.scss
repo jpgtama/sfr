@@ -3,9 +3,9 @@ body{
 }
 
 .app{
-  width: 1078px;
-  height: 1918px;
-  background-image: url(images/bg.png);
+  width: 1920px;
+  height: 1080px;
+  background-image: url(images/bg.jpg);
   background-repeat: no-repeat;
   margin: auto;
 color: white;
@@ -15,12 +15,11 @@ color: white;
     margin-right: auto;
   }
 
-.show-face-wrapper{
-  width: 527px;
 
-  .title{
+	.title{
     height: 120px;
     font-size: 34px;
+		width: 630px;
     // background-image: url(images/title01.png);
     // background-repeat: no-repeat;
     .img{
@@ -28,14 +27,24 @@ color: white;
     }
   }
 
+
+
+
+.show-face-wrapper{
+  width: 1600px;
+
+
+
   .show-face{
-    height: 740px;
+    display: inline-block;
+    height: 590px;
+    width: 417px;
     background-color: #092f49;
 
     padding-top: 22px;
 
     .face{
-      height: 500px;
+      height: 413px;
       width: 100%;
       position: relative;
 
@@ -43,31 +52,31 @@ color: white;
         position: absolute;
         left: 2px;
         top: 0px;
-        width: 509px;
-        height: 429px;
+        width: 415px;
+    	height: 391px;
       }
 
       .face-mask{
         position: absolute;
-    left: 0px;
-    top: 0px;
+	    left: 0px;
+	    top: 0px;
       }
 
       .marker-circle{
         position: absolute;
-        top: 406px;
-    left: 234px;
-    height: 50px;
+        top: 367px;
+	    left: 183px;
+	    height: 50px;
       }
 
     }
 
     .tip{
       .icon{
-          height: 90px;
-           background-image: url(images/title02.png);
-          background-repeat: no-repeat;
-              background-position-x: center;
+  		height: 90px;
+		background-image: url(images/title02.png);
+		background-repeat: no-repeat;
+		background-position-x: center;
 
       }
       .text{
@@ -84,25 +93,38 @@ color: white;
 
 
   .face-list{
-    width: 900px;
-    height: 650px;
+    margin-top: 134px;
 
     .content{
-      height: 100%;
-      width: 100%;
+      // display: inline-block;
       text-align: center;
+      width: 100%;
+	  //border-spacing: 19px;
+	  // margin-bottom: 58px;
 
       .item{
         display: inline-block;
         .img{
-          width: 260px;
-          height: 260px;
+          width: 117px;
+          height: 114px;
         }
         .time{
-              height: 40px;
+              height: 22px;
         }
       }
+
+			.videoWrapper{
+				width: 98%;
+				height: 193px; 
+				text-align: right;
+			}
+
     }
+
+	// .videoObject{
+	//       margin-left: 22px;
+	// }
+
   }
   .video{
     text-align: right;
