@@ -22,6 +22,9 @@ body {
 .app .title .img {
   vertical-align: text-bottom;
 }
+.app .show-face-list {
+  height: 612px;
+}
 .app .show-face-wrapper {
   width: 1600px;
   display: table;
@@ -76,6 +79,9 @@ body {
 }
 .app .face-list .content {
   text-align: center;
+  width: 100%;
+}
+.app .face-list .content .belowFaceDisplayer {
   width: 100%;
 }
 .app .face-list .content .item {

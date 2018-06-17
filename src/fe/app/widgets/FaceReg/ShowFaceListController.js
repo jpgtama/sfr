@@ -1,9 +1,10 @@
 define([
+  './FaceRegUtils',
   "app/config",
   'dijit/registry',
   'dojo/_base/lang',
   'dojo/_base/declare'
-], function(appConfig, registry, lang, declare){
+], function(FaceRegUtils, appConfig, registry, lang, declare){
   return declare('ShowFaceListController', [], {
 
       showFaceWrapperNode: null,
@@ -27,12 +28,12 @@ define([
            this.faceRegWidgetArray = registry.findWidgets(this.showFaceWrapperNode);
         }
 
-        debugger;
+
 
         // start fetch from ws wsQueue
         // every 300ms
         this.startFetchFromWSQueueID = window.setInterval(lang.hitch(this, 'startFetchFromWSQueue'), 300);
-      }
+      },
 
       isThereEmptySlot: function () {
         return this.emptySlots.length> 0;
@@ -41,7 +42,7 @@ define([
       displayWSFace: function (data) {
         var emptySlot = this.emptySlots.shift();
 
-        this.setImgSrc(emptySlot.realFaceNode, data.file_name, data.imgContentType);
+        FaceRegUtils.setImgSrc(emptySlot.realFaceNode, data.file_name, data.imgContentType);
 
         // set person name
         emptySlot.personNameNode.innerText = data.person_name;
@@ -58,14 +59,18 @@ define([
 
       },
 
-
-      setImgSrc: function (node, base64Str, imgContentType) {
-        if(imgContentType == 'base64'){
-          node.src = "data:image/png;base64," + base64Str;
-        }else if(imgContentType == 'url'){
-          node.src = appConfig.imgBaseUrl + base64Str;
-        }
+      moveToTable: function () {
+        this.belowListProcessor.putOne();
       },
+
+
+      // setImgSrc: function (node, base64Str, imgContentType) {
+      //   if(imgContentType == 'base64'){
+      //     node.src = "data:image/png;base64," + base64Str;
+      //   }else if(imgContentType == 'url'){
+      //     node.src = appConfig.imgBaseUrl + base64Str;
+      //   }
+      // },
 
       clearShowFace: function () {
         this.realFaceNode.src = '';
@@ -77,12 +82,9 @@ define([
           if(this.isThereEmptySlot()){
             var headItem = this.wsQueue.shift();
             if(headItem){
-
+              this.displayWSFace(headItem);
             }
           }
-
-
-
       }
 
 

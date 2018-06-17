@@ -8,7 +8,7 @@ body{
   background-image: url(images/bg.jpg);
   background-repeat: no-repeat;
   margin: auto;
-color: white;
+	color: white;
 
   .center{
     margin-left: auto;
@@ -24,10 +24,12 @@ color: white;
     // background-repeat: no-repeat;
     .img{
           vertical-align: text-bottom;
-    }
-  }
+    	}
+  	}
 
-
+		.show-face-list{
+			height: 612px;
+		}
 
 
 .show-face-wrapper{
@@ -100,11 +102,12 @@ color: white;
     margin-top: 134px;
 
     .content{
-      // display: inline-block;
       text-align: center;
       width: 100%;
-	  //border-spacing: 19px;
-	  // margin-bottom: 58px;
+
+			.belowFaceDisplayer{
+				width: 100%;
+			}
 
       .item{
         display: inline-block;

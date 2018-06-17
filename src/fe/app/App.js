@@ -20,17 +20,9 @@ define([
             _WidgetsInTemplateMixin, locale, domClass, domC, query, array, lang, template, declare) {
     /**
     Design:
-      Will have one queue:
-        1. ws-queue: store images received from ws
+      1. aboveFaceDisplayer
 
-      Will have a controller:
-        1. ShowFaceListController: which controls display ws images, fetch image from ws-queue periodically
-
-      Will have a ws data processor:
-        1. WSDataProcessor: which will process ws data
-
-      Will have a below list processor:
-        1. BelowListProcessor: will process the face list in below table
+      2. belowFaceDisplayer
 
     */
     return declare("app.App", [_WidgetBase, _TemplatedMixin,
@@ -74,9 +66,11 @@ define([
         onMsg: function (obj) {
           var d = this.wsDataProcessor.processSingle(obj);
 
-          console.log(d)
+          console.log(d);
 
-          this.wsQueue.push(d);
+          this.aboveFaceDisplayer.add(d);
+
+          //this.wsQueue.push(d);
           // if(obj){
           //   if(obj.type == "recognized" || obj.type == "unrecognized"){
           //       if(obj.data){
@@ -148,124 +142,126 @@ define([
         //   }));
         // },
 
-        setToShowFace: function () {
-          // clear current display
-          if(this.moveToTableTimeoutID){
-            clearTimeout(this.moveToTableTimeoutID);
-          }
-          this.moveToTable();
-
-            // get one
-            if(this.imgList.length > 0 ){
-              if(this.currentD.length === 0){
-                this.currentD.push(this.imgList.shift());
-              }
-            }
-
-
-
-
-
-            // display
-            if(this.currentD.length > 0){
-                this.setImgSrc(this.realFaceNode, this.currentD[0].file_name, this.currentD[0].imgContentType);
-
-                // set person name
-                if(this.currentD[0].person_name){
-                  this.personNameNode.innerText = this.currentD[0].person_name;
-                }else{
-                  this.personNameNode.innerText = '山东酷创  欢迎您';
-                }
-
-                // this.realFaceNode.src = appConfig.imgBaseUrl + this.currentD[0].file_name;
-                // this.realFaceNode.style.display = "block";
-                this.showFaceNode.style.visibility = "visible";
-
-                // moveToTable after 3 sec
-                if(!appConfig.keepLastFace){
-                  this.moveToTableTimeoutID = setTimeout(lang.hitch(this, 'moveToTable'), 1000 * 3);
-                }
-            }
-        },
-
-        setImgSrc: function (node, base64Str, imgContentType) {
-          if(imgContentType == 'base64'){
-            node.src = "data:image/png;base64," + base64Str;
-          }else if(imgContentType == 'url'){
-            node.src = appConfig.imgBaseUrl + base64Str;
-          }
-        },
-
-        clearShowFace: function () {
-          this.realFaceNode.src = '';
-          // this.realFaceNode.style.display = "none";
-          this.showFaceNode.style.visibility = "hidden";
-        },
-
-        moveToTable: function () {
-          if(this.currentD.length > 0){
-            this.addToTableImgList();
-            this.renderTableImgs();
-            this.clearShowFace();
-          }
-
-        },
-
-        addToTableImgList: function () {
-          var d = this.currentD.pop();
-
-          if(this.tableImgList.length >= 6){
-            this.tableImgList.pop();
-          }
-          // add
-          this.tableImgList.unshift(d);
-        },
-
-        getTableImgTimeDOM: function () {
-            if(!this.tableImgTimeDoms){
-              this.tableImgTimeDoms = [];
-              array.forEach(query('td', this.tableImgListNode), lang.hitch(this, function (td) {
-                  var img = query('img', td)[0];
-                  var div = query('div.time', td)[0];
-                  this.tableImgTimeDoms.push([img, div]);
-              }));
-            }
-
-            return this.tableImgTimeDoms;
-        },
-
-        renderTableImgs: function () {
-          var imgs = this.tableImgList;
-          if(imgs && imgs.length>0 ){
-            var doms = this.getTableImgTimeDOM();
-            // add
-            for(i=0;i<imgs.length && i<6; i++){
-                var img = imgs[i];
-                var imgTimeDom = doms[i];
-                // imgTimeDom[0].src = appConfig.imgBaseUrl + img.file_name;
-                this.setImgSrc(imgTimeDom[0], img.file_name, img.imgContentType)
-
-                // add person name before time
-                imgTimeDom[1].innerText = img.person_name? (img.person_name + ' '+  img.time): img.time;
-				        imgTimeDom[1].style.fontSize = '30px';
-            }
-          }
-        },
+        // setToShowFace: function () {
+        //   // clear current display
+        //   if(this.moveToTableTimeoutID){
+        //     clearTimeout(this.moveToTableTimeoutID);
+        //   }
+        //   this.moveToTable();
+        //
+        //     // get one
+        //     if(this.imgList.length > 0 ){
+        //       if(this.currentD.length === 0){
+        //         this.currentD.push(this.imgList.shift());
+        //       }
+        //     }
+        //
+        //
+        //
+        //
+        //
+        //     // display
+        //     if(this.currentD.length > 0){
+        //         this.setImgSrc(this.realFaceNode, this.currentD[0].file_name, this.currentD[0].imgContentType);
+        //
+        //         // set person name
+        //         if(this.currentD[0].person_name){
+        //           this.personNameNode.innerText = this.currentD[0].person_name;
+        //         }else{
+        //           this.personNameNode.innerText = '山东酷创  欢迎您';
+        //         }
+        //
+        //         // this.realFaceNode.src = appConfig.imgBaseUrl + this.currentD[0].file_name;
+        //         // this.realFaceNode.style.display = "block";
+        //         this.showFaceNode.style.visibility = "visible";
+        //
+        //         // moveToTable after 3 sec
+        //         if(!appConfig.keepLastFace){
+        //           this.moveToTableTimeoutID = setTimeout(lang.hitch(this, 'moveToTable'), 1000 * 3);
+        //         }
+        //     }
+        // },
+        //
+        // setImgSrc: function (node, base64Str, imgContentType) {
+        //   if(imgContentType == 'base64'){
+        //     node.src = "data:image/png;base64," + base64Str;
+        //   }else if(imgContentType == 'url'){
+        //     node.src = appConfig.imgBaseUrl + base64Str;
+        //   }
+        // },
+        //
+        // clearShowFace: function () {
+        //   this.realFaceNode.src = '';
+        //   // this.realFaceNode.style.display = "none";
+        //   this.showFaceNode.style.visibility = "hidden";
+        // },
+        //
+        // moveToTable: function () {
+        //   if(this.currentD.length > 0){
+        //     this.addToTableImgList();
+        //     this.renderTableImgs();
+        //     this.clearShowFace();
+        //   }
+        //
+        // },
+        //
+        // addToTableImgList: function () {
+        //   var d = this.currentD.pop();
+        //
+        //   if(this.tableImgList.length >= 6){
+        //     this.tableImgList.pop();
+        //   }
+        //   // add
+        //   this.tableImgList.unshift(d);
+        // },
+        //
+        // getTableImgTimeDOM: function () {
+        //     if(!this.tableImgTimeDoms){
+        //       this.tableImgTimeDoms = [];
+        //       array.forEach(query('td', this.tableImgListNode), lang.hitch(this, function (td) {
+        //           var img = query('img', td)[0];
+        //           var div = query('div.time', td)[0];
+        //           this.tableImgTimeDoms.push([img, div]);
+        //       }));
+        //     }
+        //
+        //     return this.tableImgTimeDoms;
+        // },
+        //
+        // renderTableImgs: function () {
+        //   var imgs = this.tableImgList;
+        //   if(imgs && imgs.length>0 ){
+        //     var doms = this.getTableImgTimeDOM();
+        //     // add
+        //     for(i=0;i<imgs.length && i<6; i++){
+        //         var img = imgs[i];
+        //         var imgTimeDom = doms[i];
+        //         // imgTimeDom[0].src = appConfig.imgBaseUrl + img.file_name;
+        //         this.setImgSrc(imgTimeDom[0], img.file_name, img.imgContentType);
+        //
+        //         // add person name before time
+        //         imgTimeDom[1].innerText = img.person_name? (img.person_name + ' '+  img.time): img.time;
+				//         imgTimeDom[1].style.fontSize = '30px';
+        //     }
+        //   }
+        // },
 
         postCreate: function(){
-          this.imgList = [];
-          this.tableImgList = [];
-          this.currentD = [];
-          this.wsQueue = [];
+          // this.imgList = [];
+          // this.tableImgList = [];
+          // this.currentD = [];
+          // this.wsQueue = [];
           this.wsDataProcessor = new WSDataProcessor();
-          this.belowListProcessor = new BelowListProcessor({tableImgListNode： this.tableImgListNode});
-          this.showFaceListController = new ShowFaceListController({showFaceWrapperNode: this.showFaceWrapperNode, wsQueue: this.wsQueue, belowListProcessor: this.belowListProcessor});
-          this.showFaceListController.start();
+          // this.belowListProcessor = new BelowListProcessor({tableImgListNode: this.tableImgListNode});
+          // this.showFaceListController = new ShowFaceListController({showFaceWrapperNode: this.showFaceWrapperNode, wsQueue: this.wsQueue, belowListProcessor: this.belowListProcessor});
+          // this.showFaceListController.start();
 
 
           ws.onMessage = lang.hitch(this, 'onMsg');
           ws.start();
           // this.loadData();
+
+          this.aboveFaceDisplayer.set('overflowCallback', lang.hitch(this.belowFaceDisplayer, 'add'));
 
           // this.intervalID = setInterval(lang.hitch(this, 'loadData'), 1000 * 1);
 
