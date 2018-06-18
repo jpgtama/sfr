@@ -12,16 +12,16 @@ define([
   'dojo/_base/declare'
 ], function(FaceRegUtils, appConfig,  _WidgetBase, _TemplatedMixin,
             _WidgetsInTemplateMixin, registry, query, array, lang, template, declare){
-  return declare('AboveFaceDisplayer', [_WidgetBase, _TemplatedMixin,
+  return declare('BelowFaceDisplayer', [_WidgetBase, _TemplatedMixin,
              _WidgetsInTemplateMixin], {
 
       templateString: template,
 
       wsDataArray: null,
 
-      tableImgTimeDoms: null,
-
       maxSize: 10,
+
+      displayItemWidgets : null,
 
       constructor: function (options) {
         lang.mixin(this, options);
@@ -41,33 +41,34 @@ define([
         this.wsDataArray.unshift(d);
       },
 
-      getTableImgTimeDOM: function () {
-          if(!this.tableImgTimeDoms){
-            this.tableImgTimeDoms = [];
-            array.forEach(query('td', this.domNode), lang.hitch(this, function (td) {
-                var img = query('img', td)[0];
-                var div = query('div.time', td)[0];
-                this.tableImgTimeDoms.push([img, div]);
-            }));
+      getDisplayItemWidgets: function () {
+          if(!this.displayItemWidgets){
+            this.displayItemWidgets = registry.findWidgets(this.domNode);
+            // array.forEach(query('td', this.domNode), lang.hitch(this, function (td) {
+            //     var img = query('img', td)[0];
+            //     var div = query('div.time', td)[0];
+            //     this.tableImgTimeDoms.push([img, div]);
+            // }));
           }
 
-          return this.tableImgTimeDoms;
+          return this.displayItemWidgets;
       },
 
       renderTableImgs: function () {
         var datas = this.wsDataArray;
         if(datas && datas.length>0 ){
-          var doms = this.getTableImgTimeDOM();
+          var displayItemWidgets = this.getDisplayItemWidgets();
           // add
           for(i=0;i<datas.length && i<this.maxSize; i++){
               var data = datas[i];
-              var imgTimeDom = doms[i];
+              var w = displayItemWidgets[i];
+              w.setData(data);
               // imgTimeDom[0].src = appConfig.imgBaseUrl + img.file_name;
-              FaceRegUtils.setImgSrc(imgTimeDom[0], data.file_name, data.imgContentType);
+              // FaceRegUtils.setImgSrc(imgTimeDom[0], data.file_name, data.imgContentType);
 
               // add person name before time
-              imgTimeDom[1].innerText = data.person_name? (data.person_name + ' '+  data.time): data.time;
-              imgTimeDom[1].style.fontSize = '30px';
+              // imgTimeDom[1].innerText = data.recognized? (data.person_name + '<br/> '+  data.time): data.time;
+              // imgTimeDom[1].style.fontSize = '30px';
           }
         }
       },

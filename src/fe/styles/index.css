@@ -86,6 +86,7 @@ body {
 }
 .app .face-list .content .item {
   display: inline-block;
+  height: 200px;
 }
 .app .face-list .content .item .img {
   width: 117px;
