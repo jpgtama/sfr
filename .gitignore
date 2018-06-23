@@ -5,3 +5,5 @@ src/fe/libs/dojo-release-1.13.0
 
 node_modules/
 build/
+deploy/
+instsall-script/
