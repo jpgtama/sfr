@@ -1,5 +1,6 @@
 body{
 	margin: 0px;
+	overflow: hidden;
 }
 
 .app{
@@ -104,6 +105,10 @@ body{
     .content{
       text-align: center;
       width: 100%;
+
+			.faceTD{
+					width: 80%;
+				  }
 
 			.belowFaceDisplayer{
 				width: 100%;

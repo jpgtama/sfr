@@ -26,10 +26,11 @@ define([
   		},
 
       processSingle: function (obj) {
-        var d = {};
+        var d;
 
         if(obj){
           if(obj.type == "recognized" || obj.type == "unrecognized"){
+              d = {};
               if(obj.data){
                 var data = obj.data;
                 d.imgContentType = 'base64';

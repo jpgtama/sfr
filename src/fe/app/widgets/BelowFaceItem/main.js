@@ -22,7 +22,15 @@ define([
         lang.mixin(this, options);
       },
 
+      clearData: function () {
+        this.imgNode.src = '';
+        this.nameNode.innerText = '';
+        this.timeNode.innerText ='';
+      },
+
       setData: function (data) {
+        this.clearData();
+        
         // imgTimeDom[0].src = appConfig.imgBaseUrl + img.file_name;
         FaceRegUtils.setImgSrc(this.imgNode, data.file_name, data.imgContentType);
 

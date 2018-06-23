@@ -1,5 +1,6 @@
 body {
   margin: 0px;
+  overflow: hidden;
 }
 
 .app {
@@ -80,6 +81,9 @@ body {
 .app .face-list .content {
   text-align: center;
   width: 100%;
+}
+.app .face-list .content .faceTD {
+  width: 80%;
 }
 .app .face-list .content .belowFaceDisplayer {
   width: 100%;

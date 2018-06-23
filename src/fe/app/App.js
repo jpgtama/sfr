@@ -66,9 +66,15 @@ define([
         onMsg: function (obj) {
           var d = this.wsDataProcessor.processSingle(obj);
 
-          console.log(d);
+          console.log('processed data:', d);
 
-          this.aboveFaceDisplayer.add(d);
+          if(d){
+            this.aboveFaceDisplayer.add(d);
+          }else{
+            console.log('empty data');
+          }
+
+
 
           //this.wsQueue.push(d);
           // if(obj){
